@@ -19,18 +19,18 @@ class TodoCard extends React.Component {
     render() {
         return( 
             <div className="ui segment">
-                <form class="ui form">
-                    <div class="field">
+                <form className="ui form">
+                    <div className="field">
                         <label>Todo</label>
-                        <div class="inline fields">
+                        <div className="inline fields">
                             <div className="field">
                                 <Checkbox value={this.props.todo.isDone} valueChange={this.onCheckboxChange}/>                        
                             </div>
 
-                            <div class="twelve wide field">
+                            <div className="twelve wide field">
                                 <input  type="text" placeholder="What do you want to do?" />
                             </div>
-                            <div class="two wide field">
+                            <div className="two wide field">
                                 <button className="ui button red" onClick={() => {this.props.deleteTodo(this.props.todo.id)}}>Delete</button>
                             </div>
                         </div>
