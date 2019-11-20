@@ -5,7 +5,7 @@ class Checkbox extends React.Component {
         return(
         <div>
             <div className="ui checkbox">
-                <input onChange={() => this.props.valueChange()} type="checkbox"></input>
+                <input checked={this.props.value}  onChange={() => this.props.valueChange()} type="checkbox"></input>
                 <label>Is Done?</label>
             </div>
         </div>

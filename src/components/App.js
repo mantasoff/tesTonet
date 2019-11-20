@@ -7,14 +7,6 @@ import TodoListCreationModal from './TodoListCreationModal';
 
 
 class App extends React.Component {
-    //state = {
-    //    todoArray: [{
-    //        id: 0,
-    //        isDone: false,
-    //        name: 'This is a quick task'
-    //    }]
-    //}
-
     state = {
         mode: 'NONE',
         todoArrayList: [{
@@ -23,8 +15,13 @@ class App extends React.Component {
                 todoList: [{
                        id: 0,
                        isDone: false,
-                       name: 'This is a quick task'
-                    }
+                       name: 'hi'
+                    },
+                    {
+                        id: 1,
+                        isDone: false,
+                        name: 'bye'
+                     }
                 ]
             }    
         ]
@@ -39,7 +36,7 @@ class App extends React.Component {
             todoList: [{
                    id: 0,
                    isDone: false,
-                   name: 'This is a quick task'
+                   name: ''
                 }
             ]
         }
@@ -58,38 +55,43 @@ class App extends React.Component {
     }
 
     createNewTodo = listId => {
-        const currentList = this.state.todoArrayList.filter(todo => {
-            if(listId === todo.id) return true;
+        const currentList = this.state.todoArrayList.find(todo => {
+            if(listId == todo.id) return true;
         });
+
+        console.log(currentList);
+
         let lastTodoId = 0;
         if(currentList.todoList.length > 0) lastTodoId = currentList.todoList[currentList.todoList.length-1].id;
-        //let addToArray = {
-        //    id: lastTodoArray.id + 1,
-        //    isDone: false,
-        //    name: ''
-        //}
 
-        //currentArray.push(addToArray);
-        //this.setState({
-        //    todoArray: currentArray
-        //});
-
-    }
-
-    changeTodo = (id, changedTodo) => {
-        let upcomingTodoArray = this.state.todoArray.map(todo => {
-            if(id === todo.id) {
-                todo = changedTodo;
-            }
-            return todo;
-        })  
-        console.log(upcomingTodoArray);
         this.setState({
-            todoArray: upcomingTodoArray
-        })
+            todoArrayList: this.state.todoArrayList.map(todoArray => {
+                if(listId === todoArray.id) todoArray.todoList = [...todoArray.todoList, {         
+                    id: lastTodoId + 1,
+                    isDone: false,
+                    name: 'ok'
+                }];
+                return todoArray;
+            })
+        },() => console.log(this.state))
     }
+
     
 
+    changeTodo = (listId, changedTodo) => {
+        this.setState({
+            todoArrayList: this.state.todoArrayList.map(todoArray => {
+                if(listId == todoArray.id){
+                    todoArray.todoList = todoArray.todoList.map(todo => {
+                        if(todo.id == changedTodo.id) return changedTodo;
+                        return todo;
+                    })
+                }
+                return todoArray;
+            })
+        },() => console.log(this.state))
+    }
+    
     deleteTodo = id => {
         let upcomingTodoArray = this.state.todoArray.filter(todo => {
             if(id == todo.id) {
@@ -105,20 +107,12 @@ class App extends React.Component {
     render() {
         return(
             <div className="ui container">
-                <Router history={history}>
-                    <div className="ui menu">
-                        <h2>Tesonet Todo List</h2>
-                        <div className="ui right menu">
-                            <button onClick={() => history.push('/todo/create')} className="ui button simple">New</button>
-                        </div>        
-                    </div>
-                    
+                <Router history={history}>                  
                     <div>
                         <Switch>
                             <Route exact path="/" render={(props) => <TodoPage {...props} deleteTodoArrayList={this.deleteTodoArrayList} todoArrayList={this.state.todoArrayList} /> } /> 
                             <Route exact path="/todo/create" render={(props) => <TodoListCreationModal createNewTodoList={this.createNewTodoList} />} />
-                            <Route exact path="/todo/:id" render={(props) => <TodoList {...props} deleteTodo={this.deleteTodo} changeTodo={this.changeTodo} todoArray={this.state.todoArrayList} />} />
-                            
+                            <Route exact path="/todo/:id" render={(props) => <TodoList {...props} createTodo={this.createNewTodo} deleteTodo={this.deleteTodo} changeTodo={this.changeTodo} todoArray={this.state.todoArrayList} />} />
                         </Switch>
                     </div>
                 </Router>

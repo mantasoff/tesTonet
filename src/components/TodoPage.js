@@ -1,6 +1,7 @@
 import React from 'react';
+import history from '../history';
 import TodoListCard from './TodoListCard';
-
+import TodoMenu from './TodoMenu';
 
 class TodoPage extends React.Component {
     
@@ -17,9 +18,13 @@ class TodoPage extends React.Component {
 
     render() {
         return (
-            <div className="ui grid">
-                {this.renderTodoListCards()}
+            <div>
+                <TodoMenu buttonName="Create new Todo List" menuName="TesTonet Task" onClick={() => history.push('/todo/create')}/>
+                <div className="ui grid">
+                    {this.renderTodoListCards()}
+                </div>
             </div>
+            
             
         );
     }

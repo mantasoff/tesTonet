@@ -1,10 +1,10 @@
 import React from 'react';
+import history from '../history';
 
 class TodoListCard extends React.Component {
-
     render() {
         return (
-            <div className="ui card">
+            <div className="ui link card" onClick={() => history.push(`/todo/${this.props.TodoList.id}`)}>
                 <div className="content">
                     <div className="header">{this.props.TodoList.name}</div>
                 </div>
