@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Router, Link, Switch } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 import history from '../history';
 import TodoList from './TodoList';
 import TodoPage from './TodoPage';
@@ -50,6 +50,7 @@ class App extends React.Component {
         this.setState({
             todoArrayList: this.state.todoArrayList.filter(todoArray => {
                 if(todoArray.id !== id) return true;
+                return false;
             })
         });    
     }
@@ -57,23 +58,22 @@ class App extends React.Component {
     createNewTodo = listId => {
         const currentList = this.state.todoArrayList.find(todo => {
             if(listId == todo.id) return true;
+            return false;
         });
-
-        console.log(currentList);
 
         let lastTodoId = 0;
         if(currentList.todoList.length > 0) lastTodoId = currentList.todoList[currentList.todoList.length-1].id;
 
         this.setState({
             todoArrayList: this.state.todoArrayList.map(todoArray => {
-                if(listId === todoArray.id) todoArray.todoList = [...todoArray.todoList, {         
+                if(listId == todoArray.id) todoArray.todoList = [...todoArray.todoList, {         
                     id: lastTodoId + 1,
                     isDone: false,
                     name: 'ok'
                 }];
                 return todoArray;
             })
-        },() => console.log(this.state))
+        })
     }
 
     
@@ -89,7 +89,7 @@ class App extends React.Component {
                 }
                 return todoArray;
             })
-        },() => console.log(this.state))
+        })
     }
     
     deleteTodo = id => {

@@ -4,12 +4,11 @@ import TodoListCard from './TodoListCard';
 import TodoMenu from './TodoMenu';
 
 class TodoPage extends React.Component {
-    
     renderTodoListCards = () => {
         return this.props.todoArrayList.map(TodoList => {
             return (
-                <div class="four wide column">
-                    <TodoListCard deleteTodoArray={this.props.deleteTodoArrayList} TodoList={TodoList} />
+                <div className="four wide column" key={TodoList.id}>
+                    <TodoListCard  deleteTodoArray={this.props.deleteTodoArrayList} TodoList={TodoList} />
                 </div>
             );
             
