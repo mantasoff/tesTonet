@@ -10,7 +10,7 @@ class TodoListCard extends React.Component {
 
         return filteredTodoList.map(todo => {
             return(
-                <div className="event">
+                <div key={todo.id} className="event">
                     <div className="content">
                         <div className="summary">
                             {todo.name}
