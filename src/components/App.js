@@ -92,16 +92,18 @@ class App extends React.Component {
         })
     }
     
-    deleteTodo = id => {
-        let upcomingTodoArray = this.state.todoArray.filter(todo => {
-            if(id == todo.id) {
-                return false;
-            }
-            return true;
-        })  
+    deleteTodo = (listId,id) => {
         this.setState({
-            todoArray: upcomingTodoArray
-        })       
+            todoArrayList: this.state.todoArrayList.map(todoArray => {
+                if(listId == todoArray.id){
+                    todoArray.todoList = todoArray.todoList.filter(todo => {
+                        if(todo.id !== id) return true;
+                        return false;
+                    })
+                }
+                return todoArray;
+            })
+        })
     }
 
     render() {

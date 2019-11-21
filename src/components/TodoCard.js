@@ -32,7 +32,7 @@ class TodoCard extends React.Component {
                                 <input value={this.props.todo.name}  onChange={(e) => this.onInputChange(e.target.value)} type="text" placeholder="What do you want to do?" />
                             </div>
                             <div className="two wide field">
-                                <button className="ui button red" onClick={() => {this.props.deleteTodo(this.props.todo.id)}}>Delete</button>
+                                <button className="ui button red" onClick={() => {this.props.deleteTodo(this.props.listId,this.props.todo.id)}}>Delete</button>
                             </div>
                         </div>
                     </div>
